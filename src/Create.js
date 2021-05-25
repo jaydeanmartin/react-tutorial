@@ -1,62 +1,97 @@
-import { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
+
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+
+import { makeStyles } from '@material-ui/core'
+import TextField from '@material-ui/core/TextField'
+import { useState } from 'react'
+
+const useStyles = makeStyles({
+    field: {
+        marginTop: 20,
+        marginBottom: 20,
+        display: 'block'
+      }
+})
 
 const Create = () => {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
-    const [author, setAuthor] = useState('yoshi'); 
-    const [isPending, setIsPending] = useState(false);
-    const history = useHistory();
+    const classes = useStyles();
+    const [title, setTitle] = useState('')
+    const [details, setDetails] = useState('')
+    const [titleError, setTitleError] = useState(false)
+    const [detailsError, setDetailsError] = useState(false)
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        const blog = {title, body, author };
+        e.preventDefault()
 
-        setIsPending(true);
+        setTitleError(false)
+        setDetailsError(false)
 
-        fetch('http://localhost:8000/blogs', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(blog)
-        }).then(() => {
-            console.log('new blog added');
-            setIsPending(false)
-            history.push('/');
-        })
+        if (title === '') {
+            setTitleError(true)
+        } 
 
+        if (details === '') {
+            setDetailsError(true)
+        }
 
-
+        if (title && details) {
+            console.log(title, details)
+        }
     }
 
     return ( 
-        <div className="create">
-            <h2>Add a New Blog</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Blog title</label>
-                <input 
-                    type="text"
-                    required
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <label>Blog body</label>
-                <textarea
+        <Container>
+            <Typography 
+                variant="h6"
+                color="textSecondary"
+                component="h2"
+                gutterBottom
+            >
+                Create a new Note
+            </Typography>
+
+            <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <TextField 
+                  onChange={(e) => setTitle(e.target.value)}
+                  className={classes.field}
+                  label="Note Title"
+                  variant="outlined"  
+                  color="secondary"
+                  fullWidth
                   required
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                ></textarea> 
-                <label>Blog author</label>
-                <select
-                  value = {author}
-                  onChange={(e) => setAuthor(e.target.value)}>
-                    <option value="mario">mario</option>
-                    <option value="yoshi">yoshi</option>
-                </select>
-                { !isPending && <button>Add Blog</button>}
-                { isPending && <button disabled >Adding Blog...</button>}
+                  error={titleError}
+                />
+                <TextField 
+                  onChange={(e) => setDetails(e.target.value)}
+                  className={classes.field}
+                  label="Details"
+                  variant="outlined"  
+                  color="secondary"
+                  multiline
+                  rows={4}
+                  fullWidth
+                  required
+                  error={detailsError} 
+                />
+
+                <Button 
+                    onClick={() => console.log("you clicked me") }
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    endIcon={<KeyboardArrowRightIcon/>}
+                >
+                    Submit
+                </Button>
+
             </form>
-        </div>
-     );
+
+
+        </Container>
+    );
 }
  
 export default Create;
