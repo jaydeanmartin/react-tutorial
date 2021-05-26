@@ -1,9 +1,22 @@
 {
-    "datasets": [
-      { "title" : "sine",
-        "x": [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-        "y": [0, 0.587785252, 0.951056516, 0.951056516, 0.587785252, 1.22515E-16, -0.587785252, -0.951056516, -0.951056516, -0.587785252, -1.13321E-15],
-        "id": 1
-      }
-    ]
+  "notes": [
+    {
+      "title": "Yoshi's birthday bash",
+      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "category": "reminders",
+      "id": 1
+    },
+    {
+      "title": "Complete my ninja training",
+      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.",
+      "category": "work",
+      "id": 2
+    },
+    {
+      "title": "Order a pizza!",
+      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "category": "todos",
+      "id": 3
+    }
+  ]
 }

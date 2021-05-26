@@ -1,12 +1,18 @@
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
-
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 
 import { makeStyles } from '@material-ui/core'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+
 import TextField from '@material-ui/core/TextField'
 import { useState } from 'react'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles({
     field: {
@@ -18,10 +24,12 @@ const useStyles = makeStyles({
 
 const Create = () => {
     const classes = useStyles();
+    const history = useHistory();
     const [title, setTitle] = useState('')
     const [details, setDetails] = useState('')
     const [titleError, setTitleError] = useState(false)
     const [detailsError, setDetailsError] = useState(false)
+    const [category, setCategory] = useState('todos')
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -38,12 +46,16 @@ const Create = () => {
         }
 
         if (title && details) {
-            console.log(title, details)
+            fetch('http://localhost:8000/notes', {
+                method: 'POST',
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify({ title, details, category  })
+            }).then(() => history.push('/'))
         }
     }
 
     return ( 
-        <Container>
+        <Container size="sm">
             <Typography 
                 variant="h6"
                 color="textSecondary"
@@ -76,6 +88,17 @@ const Create = () => {
                   required
                   error={detailsError} 
                 />
+
+
+                <FormControl className={classes.field}>
+                    <FormLabel>Note Category</FormLabel>
+                    <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <FormControlLabel value="money" control={<Radio />} label="Money"/>
+                        <FormControlLabel value="todos" control={<Radio />} label="Todos"/>
+                        <FormControlLabel value="reminders" control={<Radio />} label="Reminders"/>
+                        <FormControlLabel value="work" control={<Radio />} label="Work"/>
+                    </RadioGroup>
+                </FormControl>
 
                 <Button 
                     onClick={() => console.log("you clicked me") }

@@ -1,15 +1,9 @@
-import Navbar from './Navbar'
-import Home from './Home'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
-import Create from './Create';
-import BlogDetails from './BlogDetails';
-import NotFound from './NotFound';
-import PlotlyComponent from './PlotlyComponent';
-import EditorComponent from './EditorComponent';
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Notes from './pages/Notes'
+import Create from './pages/Create'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
-
+import Layout from './components/Layout'
 
 const theme = createMuiTheme({
   palette: {
@@ -28,30 +22,19 @@ const theme = createMuiTheme({
 })
 
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Switch>
-        <Route exact path="/">
-            <Home />
-          </Route>
-          <Route  path="/create">
-            <Create />
-          </Route>
-          <Route path="/blogs/:id">
-            <BlogDetails />
-          </Route>
-          <Route path="/plot">
-            <PlotlyComponent />
-          </Route>
-          <Route path="/editor">
-            <EditorComponent />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+        <Layout>
+            <Switch>
+            <Route exact path="/">
+                <Notes />
+            </Route>
+            <Route path="/create">
+                <Create />
+            </Route>
+            </Switch>
+        </Layout>
       </Router>
     </ThemeProvider>
   );
